@@ -15,6 +15,7 @@ class MainLayout extends React.Component {
       pageTabs,
       activedTab,
       switchTab,
+      deleteTab,
       i18n: { t, switchLanguage },
     } = this.props;
     return (
@@ -55,22 +56,30 @@ class MainLayout extends React.Component {
             </ul>
           </div>
         </nav>
-        <div className="main-contents">
-          <Tabs
-            activeKey={activedTab}
-            onChange={value => {
-              switchTab(value);
-            }}
-          >
-            {pageTabs &&
-              pageTabs.map((v, k) => {
+        <div className="main-contents" style={{ paddingTop: 10 }}>
+          {pageTabs && (
+            <Tabs
+              hideAdd
+              activeKey={activedTab}
+              onChange={targetKey => {
+                switchTab(targetKey);
+              }}
+              onEdit={(targetKey, action) => {
+                if (action === 'remove') {
+                  deleteTab(targetKey);
+                }
+              }}
+              type={pageTabs.length === 1 ? 'card' : 'editable-card'}
+            >
+              {pageTabs.map((v, k) => {
                 return (
-                  <TabPane tab={v.title} key={v.tabId}>
+                  <TabPane tab={v.title} key={v.tabId} closable={true}>
                     {v.component && <v.component />}
                   </TabPane>
                 );
               })}
-          </Tabs>
+            </Tabs>
+          )}
         </div>
       </div>
     );
