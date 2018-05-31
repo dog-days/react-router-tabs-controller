@@ -86,7 +86,7 @@ class RouteController extends React.Component {
     var pathname = this.getPathNameByHistory();
     return this.getViewConfig(pathname, pluginsConfig).then(config => {
       if (!config && pathname === '/') {
-        const history = this.context.router.history;
+        const history = this.history;
         //这里围绕着主页重定向导致的一些问题，做了一些处理。
         //这里需要赋值，不赋值重定向有问题。
         this.pathname = '/';
@@ -285,6 +285,11 @@ class RouteController extends React.Component {
    * @param  {object} config [description]
    */
   setTabs(config) {
+    if (this.indexRedirect) {
+      //主页重定向，不做处理
+      this.indexRedirect = false;
+      return false;
+    }
     const queryParams = this.pathnameParams;
     //使用url已有tabid或者随机生成tabId
     const tabId = queryParams._tabid_ || randomKey();
