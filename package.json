@@ -1,0 +1,130 @@
+{
+  "name": "react-router-tabs-controller",
+  "version": "0.0.1",
+  "description": "react-router-tabs-controller，react路由控制器",
+  "main": "libs/index.js",
+  "scripts": {
+    "build-publish": "npm run build && npm publish",
+    "build": "npm run build-es && npm run build-default",
+    "build-es": "cross-env BABEL_ENV=es babel ./src -d es",
+    "build-default": "cross-env BABEL_ENV=default babel ./src -d libs",
+    "build-default-watch": "cross-env BABEL_ENV=default babel ./src -d libs -w",
+    "build-es-watch": "cross-env BABEL_ENV=es babel ./src -d es -w",
+    "start": "react-boilerplate-app-scripts start",
+    "build-demo": "react-boilerplate-app-scripts build",
+    "serve-build": "react-boilerplate-app-scripts serve-build",
+    "prettier": "prettier --write './**/*(*.js|*.jsx|*.less|*.css)'",
+    "switch-demo": "switch-demo",
+    "test": ""
+  },
+  "lint-staged": {
+    "*.js|*.jsx": [
+      "eslint"
+    ],
+    "*.js|*.jsx|*.less|*.css": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dog-days/react-router-tabs-controller.git"
+  },
+  "keywords": [
+    "react",
+    "router",
+    "controller",
+    "控制器",
+    "路由"
+  ],
+  "author": "xianshannan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dog-days/react-router-tabs-controller/issues"
+  },
+  "homepage": "https://github.com/dog-days/react-router-tabs-controller#readme",
+  "dependencies": {
+    "promise": "^8.0.1",
+    "react-router-dom": "^4.1.2"
+  },
+  "devDependencies": {
+    "antd": "^3.5.4",
+    "babel-cli": "^6.24.1",
+    "cross-env": "^5.0.4",
+    "husky": "^1.0.0-rc.4",
+    "lint-staged": "^7.1.0",
+    "lodash": "^4.17.10",
+    "preact": "^8.2.6",
+    "preact-compat": "^3.17.0",
+    "prettier": "^1.13.3",
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1",
+    "react-boilerplate-app-scripts": "^0.2.11",
+    "react-dom": "^15.6.1",
+    "switch-demo": "0.0.1"
+  },
+  "peerDependencies": {
+    "prop-types": ">=15.5.7",
+    "react": ">=15.5.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test"
+    }
+  },
+  "react-boilerplate-app-scripts": {
+    "appSrcPath": "demo/demo-i18n/src",
+    "appPublicPath": "demo/demo-i18n/public"
+  },
+  "babel": {
+    "presets": [
+      "react",
+      [
+        "es2015",
+        {
+          "modules": false
+        }
+      ],
+      "stage-0"
+    ],
+    "plugins": [
+      "transform-decorators-legacy"
+    ],
+    "env": {
+      "development": {
+        "plugins": [
+          "react-hot-loader/babel"
+        ]
+      },
+      "default": {
+        "plugins": [
+          "transform-decorators-legacy"
+        ],
+        "presets": [
+          "react",
+          "es2015",
+          "stage-0"
+        ]
+      },
+      "es": {
+        "plugins": [
+          "transform-decorators-legacy"
+        ],
+        "presets": [
+          "react",
+          [
+            "es2015",
+            {
+              "modules": false
+            }
+          ],
+          "stage-0"
+        ]
+      }
+    }
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  }
+}
