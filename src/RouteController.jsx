@@ -217,6 +217,13 @@ class RouteController extends React.Component {
   pageTabsObj = {};
   activedTab = 0;
   tabsProps = {};
+  get tabIds() {
+    const ids = [];
+    for (let k in this.pageTabsObj) {
+      ids.push(k);
+    }
+    return ids;
+  }
   /**
    * getTabProps 获取指定tabProps
    * @return {object} tabProps对象
@@ -248,6 +255,20 @@ class RouteController extends React.Component {
         this.activedTab = tabId;
         const tab = this.pageTabsObj[tabId];
         history.push(pathnameAdapter(tab.pathname.split('/_tabid_')[0]) + '/_tabid_/' + tabId);
+      },
+      deleteTab: tabId => {
+        //先赋值，避免重新计算
+        const tabIds = this.tabIds;
+        let tabIdsIndex = tabIds.indexOf(tabId) - 1;
+        let lastTabId = tabIds[tabIdsIndex];
+        delete this.pageTabsObj[tabId];
+        if (tabIdsIndex < 0) {
+          lastTabId = tabIds[1];
+        }
+        const tab = this.pageTabsObj[lastTabId];
+        this.history.replace(
+          pathnameAdapter(tab.pathname.split('/_tabid_')[0]) + '/_tabid_/' + lastTabId
+        );
       },
     };
   }

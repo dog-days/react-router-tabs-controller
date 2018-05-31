@@ -75,6 +75,8 @@ export default class Contoller {
     //begin--页面title设置
     if (this.suffixTitle) {
       document.title = config.title + this.suffixTitle;
+    } else {
+      document.title = config.title;
     }
     config.params = params;
     //end--页面title设置
